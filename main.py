@@ -3,8 +3,12 @@ import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
 import os
+from dotenv import load_dotenv
 from geopy.geocoders import Nominatim
 import pycountry_convert as pc
+
+#haciendo 'públicas' las variables del archivo .env para el proyecto
+load_dotenv()
 
 
 def start():
