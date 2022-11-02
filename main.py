@@ -28,10 +28,9 @@ def start():
     #para los ciculos, tamaño, color y demás
     marker=go.scattermapbox.Marker(
         #tamaño de las burbujas
-        size=df.capital, 
+        size=4, 
 
         # cantidad de paises selecionados 
-        color=df.capital, 
 
         #para los colores https://plotly.com/python/builtin-colorscales/
         colorscale= 'Edge', 
@@ -44,8 +43,8 @@ def start():
     ),
 
     hoverinfo='text',
-    hovertext= '<b>Ciudad:</b>' + df['acronym_country'].astype(str) + '<br>'+
-    '<b>cantidad de paises:</b>' + df['capital'].astype(str) + '<br>'
+    hovertext= '<b>Ciudad:</b>' + df['country'].astype(str) + '<br>'
+    #+'<b>cantidad de paises:</b>' + df['capital'].astype(str) + '<br>'
     ))
 
   fig.update_layout(
