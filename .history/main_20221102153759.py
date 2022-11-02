@@ -60,15 +60,11 @@ def start():
   fig.show()
 start()
 
-continent_name = pc.country_alpha2_to_continent_code('PE')
-print(continent_name)
-
 data = pd.read_csv('./content/rebuild-worldcities.csv')
 
-for i in range(len(data)):
-  continent_name = pc.country_alpha2_to_continent_code(data['country'][i])
-  print(continent_name)
 
+continent_name = pc.country_alpha2_to_continent_code('PE')
+print(continent_name)
 
 
 # initialize Nominatim API
