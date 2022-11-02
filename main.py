@@ -1,26 +1,23 @@
+
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
 import os
+from dotenv import load_dotenv
 from geopy.geocoders import Nominatim
 import pycountry_convert as pc
+from utils.clean import handle as cleanData
 
+
+#haciendo 'públicas' las variables del archivo .env para el proyecto
+load_dotenv()
 
 def start():
   df = pd.read_csv('./content/worldcities.csv')
-  # renombramos el atributo "iso3" que trae la variable df, por "acronym_country"
-  df= df.rename(columns={'iso3':'acronym_country'})
-  #borramos los valores nulos de la poblacion y de la capital
-  df=df.dropna(subset=['population'])
-  df=df.dropna(subset=['capital'])
 
-  #pasamos la poblacion a entero
-  df.population=df.population.astype(int)
-  df.isnull().sum()
-  # vuelve asignar un index a cada país
-  df=df.groupby(['acronym_country','lng','lat'])['capital'].count().reset_index()
-  
+  df = cleanData(df)
+  df.to_csv('./content/rebuild-worldcities.csv')
 
   fig = go.Figure(go.Scattermapbox(
     lon = df.lng,
@@ -32,10 +29,9 @@ def start():
     #para los ciculos, tamaño, color y demás
     marker=go.scattermapbox.Marker(
         #tamaño de las burbujas
-        size=df.capital, 
+        size=4, 
 
         # cantidad de paises selecionados 
-        color=df.capital, 
 
         #para los colores https://plotly.com/python/builtin-colorscales/
         colorscale= 'Edge', 
@@ -48,8 +44,8 @@ def start():
     ),
 
     hoverinfo='text',
-    hovertext= '<b>Ciudad:</b>' + df['acronym_country'].astype(str) + '<br>'+
-    '<b>cantidad de paises:</b>' + df['capital'].astype(str) + '<br>'
+    hovertext= '<b>Ciudad:</b>' + df['country'].astype(str) + '<br>'
+    #+'<b>cantidad de paises:</b>' + df['capital'].astype(str) + '<br>'
     ))
 
   fig.update_layout(
