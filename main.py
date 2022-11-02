@@ -4,7 +4,6 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import os
 from dotenv import load_dotenv
-from geopy.geocoders import Nominatim
 import pycountry_convert as pc
 from utils.clean import handle as cleanData
 
@@ -17,6 +16,7 @@ def start():
 
   df = cleanData(df)
   df.to_csv('./content/rebuild-worldcities.csv')
+
 
   fig = go.Figure(go.Scattermapbox(
     lon = df.lng,
@@ -59,17 +59,6 @@ def start():
   )
   fig.show()
 start()
-
-continent_name = pc.country_alpha2_to_continent_code('PE')
-print(continent_name)
-
-data = pd.read_csv('./content/rebuild-worldcities.csv')
-
-for i in range(len(data)):
-  continent_name = pc.country_alpha2_to_continent_code(data['country'][i])
-  print(continent_name)
-
-
 
 # initialize Nominatim API
 #geolocator = Nominatim(user_agent="geoapiExercises")
