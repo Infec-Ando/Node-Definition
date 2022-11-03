@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import os
 from dotenv import load_dotenv
+from geopy.geocoders import Nominatim
 import pycountry_convert as pc
 from utils.clean import handle as cleanData
 
@@ -58,6 +59,14 @@ def start():
   )
   fig.show()
 start()
+
+for i in range(0, len(df)):
+    if df['capital'][i] == 1:
+        print(df['country'][i])
+
+continent_name = pc.country_alpha2_to_continent_code('PE')
+print(continent_name)
+
 
 # initialize Nominatim API
 #geolocator = Nominatim(user_agent="geoapiExercises")
