@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import os
 from dotenv import load_dotenv
+from graph.tree import newNode
 import pycountry_convert as pc
 from utils.clean import handle as cleanData
 
@@ -56,21 +57,12 @@ def start():
       showlegend = True,
       autosize = True
   )
+
+  root = newNode(0);
+  (root.child).append(newNode(1));
+  
+  for country, index in df:
+    (root.child[index].child).append(newNode(df.iloc[country][0]));
+
   fig.show()
 start()
-
-# initialize Nominatim API
-#geolocator = Nominatim(user_agent="geoapiExercises")
-#
-#
-#Latitude = "35.6839"
-#Longitude = "139.7744"
-#
-#location = geolocator.reverse(Latitude+","+Longitude)
-#
-#
-#
-#
-#address = location.raw['address']
-## Display
-#print(address)

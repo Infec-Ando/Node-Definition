@@ -3,6 +3,9 @@ import pycountry_convert as pc
 from utils.addContinent import handle as addContinent
 from utils.resetIndex import handle as resetIndex 
 
+
+
+
 def handle(df:pd):
   
   # eliminamos la columna country para ser remplazada por otra
@@ -19,8 +22,10 @@ def handle(df:pd):
   df.isnull().sum()
   df = resetIndex(df)
   [df,continent] = addContinent(df)
-  df = df.drop(columns=['capital'])
   df.insert(6 ,"continent",continent)
+
+  df = df.drop(columns=['capital'])
+
 
 
   return df

@@ -8,10 +8,11 @@ def handle(df):
   # este for loop eliminará todos las filas cuyo código de país no contenga la librería pycountry 
   for i in range(len(df)):
     try:
-      continent[i] = pc.country_alpha2_to_continent_code(df['country'][i])
-
+      res =pc.country_alpha2_to_continent_code(df['country'][i])
+      continent[i] = res
     except Exception:
-      df = df.drop([i])
-      
+        df = df.drop([i])      
+
   df = resetIndex(df)
+
   return [df,continent]
